@@ -1321,15 +1321,17 @@ void update_vehicles(void) {
 
     if (gCurrentCourseId == COURSE_AWARD_CEREMONY) {
         for (i = 0; i < 7; i++) {
-            func_8000DF8C(i);
+            update_bomb_karts(i);
         }
         return;
     }
 
+    // update_vehicles is ran twice per frame.
+    // This makes vehicles only tick once per frame.
     if (D_8016337C & 1) {
         if (gModeSelection == VERSUS) {
             for (i = 0; i < 7; i++) {
-                func_8000DF8C(i);
+                update_bomb_karts(i);
             }
         }
 #if !ENABLE_CUSTOM_COURSE_ENGINE
@@ -2037,9 +2039,9 @@ void init_course_path_point(void) {
         if (gSizePath[i] >= 2) {
             load_track_path(i);
             calculate_track_boundaries(i);
-            analize_track_section(i);
-            analyse_angle_path(i);
-            analisze_curved_path(i);
+            analyze_track_sections(i);
+            analyze_path_angle(i);
+            analyze_curved_path(i);
         }
     }
 
